@@ -1,0 +1,81 @@
+#include <iostream>     // std::cout
+#include <algorithm>    // std::transform
+#include <vector>       // std::vector
+#include <functional>
+#include <cstring>
+#include <cmath>
+#include <math.h>
+#include <iomanip>
+#include <string.h>
+#include <sstream>
+#include<bits/stdc++.h>
+typedef long long ll;
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    ll *lady = new ll[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>lady[i];
+    }
+    int q;
+    ll chimp,s,e,mid,lady1=0,lady2=0;
+    cin>>q;
+    for(int i=0;i<q;i++)
+    {
+        cin>>chimp;
+        s=0; e=n-1;
+        while(s<=e)
+        {
+            mid = ((e-s)/2) + s;
+            if(lady[mid] == chimp)
+            {
+                int i=1;
+                if(mid < n-1)
+               {
+                   while(lady[mid+i]==lady[mid])
+                    {
+                        i++;
+                    }
+                    if((mid+i) <= n-1)
+                      lady2 = lady[mid+i];
+               }
+                i=1;
+                if(mid > 0)
+               {
+                   while(lady[mid-i] == lady[mid])
+                    {
+                        i++;
+                    }
+                    if((mid-i) >= 0)
+                      lady1 = lady[mid-i];
+               }
+                   break;
+            }
+            else if(lady[mid]<chimp)
+            {
+                lady1 = lady[mid];
+                s = mid+1;
+            }
+            else
+            {
+                lady2 = lady[mid];
+                e = mid-1;
+            }
+        }
+        if(lady1 != 0)
+            cout<<lady1<<" ";
+        else
+            cout<<"X"<<" ";
+        if(lady2 != 0)
+            cout<<lady2<<endl;
+        else
+            cout<<"X"<<endl;
+        lady1 = 0; lady2 = 0;
+    }
+
+    return 0;
+}
